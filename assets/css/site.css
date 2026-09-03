@@ -158,6 +158,52 @@ button { font: inherit; }
 .carousel-dot.is-active { background: var(--accent); transform: scale(1.25); }
 .carousel-help { margin: 10px 0 0; color: #66738c; font-size: 10px; }
 
+
+/* Landscape carousel variant for desktop app screenshots and feature graphics. */
+.carousel--landscape .carousel-shell {
+  display: block;
+  position: relative;
+}
+.carousel--landscape .carousel-viewport {
+  aspect-ratio: 3 / 2;
+  border: 1px solid rgba(255,255,255,.10);
+  background:
+    radial-gradient(circle at 50% 45%, rgba(var(--accent-rgb), .055), transparent 58%),
+    linear-gradient(145deg, rgba(10, 18, 35, .96), rgba(5, 10, 21, .98));
+  box-shadow: 0 24px 54px rgba(0,0,0,.28);
+}
+.carousel--landscape .carousel-track,
+.carousel--landscape .carousel-slide {
+  height: 100%;
+}
+.carousel--landscape .carousel-slide {
+  align-items: center;
+  padding: 8px;
+}
+.carousel--landscape .carousel-image {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 18px;
+  border: 0;
+  box-shadow: none;
+}
+.carousel--landscape .carousel-arrow {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(7, 11, 22, .88);
+  backdrop-filter: blur(8px);
+}
+.carousel--landscape .carousel-prev { left: 12px; }
+.carousel--landscape .carousel-next { right: 12px; }
+.carousel--landscape .carousel-arrow:hover {
+  transform: translateY(-50%) scale(1.04);
+}
+
 .site-footer { padding: 4px 0 38px; color: #68758e; font-size: 12px; text-align: center; }
 .site-footer p { margin: 0; }
 
@@ -206,6 +252,9 @@ button { font: inherit; }
   .carousel-viewport { border-radius: 21px; }
   .carousel-caption { min-height: 58px; margin-top: 15px; font-size: 12px; }
   .carousel-help { display: none; }
+  .carousel--landscape .carousel-slide { padding: 6px; }
+  .carousel--landscape .carousel-prev { left: 8px; }
+  .carousel--landscape .carousel-next { right: 8px; }
 }
 
 @media (max-width: 390px) {
