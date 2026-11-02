@@ -1,0 +1,47 @@
+/* Additions for the DiveArt-first homepage. Existing site.css remains untouched. */
+#diveart { --accent: #1ccaf2; --accent-rgb: 28, 202, 242; }
+#diveart .app-lead { color: #f4f8ff; }
+#diveart .app-card-glow { background: rgba(14, 143, 244, .16); }
+.diveart-focus {
+  margin: 2px 0 21px;
+  color: #d6e6fa;
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.65;
+}
+.platform-coming {
+  min-height: 54px;
+  min-width: 174px;
+  padding: 8px 14px;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(166, 198, 236, .32);
+  background: rgba(25, 43, 74, .42);
+  border-radius: 10px;
+  color: #e8f3ff;
+  font-size: 12px;
+  text-align: center;
+}
+.platform-coming strong { font-size: 12px; font-weight: 750; }
+.platform-coming small { color: #9dbbe2; margin-top: 2px; font-weight: 650; }
+#diveart .carousel-viewport { background: #071422; }
+@media (max-width: 620px) {
+  .platform-coming { min-height: 49px; }
+  .diveart-focus { font-size: 13px; }
+}
+
+/* Vector carousel chevrons: geometric centring, independent of font metrics. */
+.carousel-arrow {
+  display: grid;
+  place-items: center;
+  padding: 0;
+  line-height: 0;
+}
+.carousel-arrow svg {
+  display: block;
+  width: 24px;
+  height: 24px;
+  flex: none;
+}
