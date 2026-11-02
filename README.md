@@ -45,31 +45,26 @@ The intended user-site repository is `BorisUK.github.io`.
 
 Once the site is ready, create that repository, copy these files to its root, commit and push the `main` branch. GitHub Pages can then publish at `https://borisuk.github.io/`.
 
-## Privacy policies
+## Squashing Git History
 
-For now, privacy links still point to the existing Google Sites pages. They can be moved into this repository later.
+1. Remove existing local Git history
+   ```powershell
+   Remove-Item -Recurse -Force .git
+   ```
 
-## v4 screenshot sizing
-The portrait screenshot carousel is now capped by height rather than width on desktop. This keeps the app cards compact and automatically reduces screenshot width while preserving the original portrait aspect ratio.
+2. Initialize a fresh Git repository
+   ```bash
+   git init -b main
+   ```
 
+3. Stage and commit all current files
+   ```bash
+   git add .
+   git commit -m "Initial commit"
+   ```
 
-## v5 cleanup
-
-- Removed screenshot zoom/lightbox code.
-- Replaced the corrected Drop Ten Adventure screenshot.
-- Removed unused/heavy National Flags decorative assets (`compass-rose.png`, `star-medal.png`).
-
-## Privacy policy pages
-
-The privacy policies are hosted directly in this static site:
-
-- `drop-ten-privacy.html`
-- `national-flags-privacy.html`
-
-The Privacy Policy links on the homepage point to these local pages, so the Google Sites privacy pages are no longer required after this version is published.
-
-
-## v7 changes
-
-- Privacy policy cards now use the same site shell width as the app cards.
-- National Flags privacy request form corrected to https://forms.cloud.microsoft/r/4KenKK9VMp.
+4. Link to remote repository and force push
+   ```bash
+   git remote add origin https://github.com/BorisUK/BorisUK.github.io.git
+   git push -u origin main --force
+   ```
