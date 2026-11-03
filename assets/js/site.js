@@ -25,6 +25,22 @@
     image.addEventListener('error', () => image.remove());
   });
 
+  // Videos stay unloaded until the visitor explicitly presses Play.
+  const diveartVideos = [...document.querySelectorAll('.diveart-video-player')];
+  document.querySelectorAll('[data-video-open]').forEach(button => {
+    button.addEventListener('click', () => {
+      const video = button.parentElement.querySelector('.diveart-video-player');
+      if (!video) return;
+      // Do not play two videos over each other.
+      diveartVideos.forEach(other => { if (other !== video) other.pause(); });
+      video.src = button.dataset.videoSrc;
+      video.hidden = false;
+      button.hidden = true;
+      video.load();
+      video.play().catch(() => { /* Native controls remain available. */ });
+    });
+  });
+
   const formatCaption = text => {
     const [title, detail] = text.split('|').map(part => part.trim());
     return detail ? `<strong>${title}</strong> ${detail}` : text;

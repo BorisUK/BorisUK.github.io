@@ -26,7 +26,8 @@
 }
 .platform-coming strong { font-size: 12px; font-weight: 750; }
 .platform-coming small { color: #9dbbe2; margin-top: 2px; font-weight: 650; }
-#diveart .carousel-viewport { background: #071422; }
+/* Do not show a wider, dark rectangular background behind portrait screenshots. */
+#diveart .carousel-viewport { background: transparent; }
 @media (max-width: 620px) {
   .platform-coming { min-height: 49px; }
   .diveart-focus { font-size: 13px; }
@@ -44,4 +45,47 @@
   width: 24px;
   height: 24px;
   flex: none;
+}
+
+
+/* DiveArt videos sit within the main product card, below its features and carousel. */
+#diveart .diveart-videos {
+  grid-column: 1 / -1;
+  position: relative;
+  z-index: 4;
+  min-width: 0;
+  margin-top: 4px;
+  padding-top: clamp(26px, 3.4vw, 42px);
+  border-top: 1px solid rgba(156, 178, 218, .25);
+  background: none;
+  box-shadow: none;
+}
+.diveart-videos-heading { margin: 0 0 25px; }
+.diveart-videos-heading .app-type { margin-bottom: 7px; color: #1ccaf2; }
+.diveart-videos-heading h2 { margin: 0; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.2; letter-spacing: -.035em; }
+.diveart-videos-heading p:not(.app-type) { margin: 9px 0 0; color: var(--muted); font-size: 14px; }
+.diveart-video-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 24px; }
+.diveart-video-card { min-width: 0; overflow: hidden; border-radius: 17px; border: 1px solid rgba(156, 178, 218, .16); background: rgba(5, 13, 27, .68); }
+.diveart-video-frame { aspect-ratio: 16 / 9; position: relative; overflow: hidden; background: #061626; }
+.diveart-video-preview { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; display: block; }
+.diveart-video-preview:focus-visible { outline: 3px solid #1ccaf2; outline-offset: -4px; }
+.diveart-video-preview img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 220ms ease, filter 220ms ease; }
+.diveart-video-preview:hover img { transform: scale(1.025); filter: brightness(.82); }
+.diveart-video-play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: grid; place-items: center; width: 67px; height: 67px; padding-left: 3px; border: 1px solid rgba(255,255,255,.55); border-radius: 50%; color: white; background: rgba(4, 20, 38, .86); box-shadow: 0 9px 34px rgba(0,0,0,.46); transition: background 160ms ease, transform 160ms ease; }
+.diveart-video-preview:hover .diveart-video-play, .diveart-video-preview:focus-visible .diveart-video-play { background: #098af2; transform: translate(-50%, -50%) scale(1.07); }
+.diveart-video-player { display: block; width: 100%; height: 100%; object-fit: contain; background: #061626; }
+.diveart-video-player[hidden], .diveart-video-preview[hidden] { display: none; }
+.diveart-video-info { min-height: 86px; padding: 17px 19px 19px; display: flex; justify-content: space-between; align-items: start; gap: 14px; }
+.diveart-video-info h3 { margin: 0 0 4px; font-size: 17px; line-height: 1.3; }
+.diveart-video-info p { margin: 0; color: var(--muted); font-size: 12.5px; line-height: 1.5; }
+.diveart-video-duration { white-space: nowrap; padding: 5px 8px; border-radius: 7px; background: rgba(44, 77, 108, .36); color: #bcd3e8; font-size: 11px; font-weight: 750; }
+.diveart-video-noscript { color: var(--muted); font-size: 14px; }
+@media (max-width: 720px) {
+  .diveart-video-grid { grid-template-columns: 1fr; gap: 18px; }
+  #diveart .diveart-videos { padding-top: 26px; }
+  .diveart-videos-heading { margin-bottom: 20px; }
+  .diveart-video-play { width: 58px; height: 58px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .diveart-video-preview img, .diveart-video-play { transition: none; }
 }
