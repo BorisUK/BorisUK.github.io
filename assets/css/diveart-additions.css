@@ -47,7 +47,6 @@
 .diveart-home .brand-mark, .other-apps-page .brand-mark { width: 36px; height: 36px; border-radius: 9px; }
 .diveart-home .site-nav, .other-apps-page .site-nav { display: flex; gap: 25px; }
 .diveart-home .site-nav a, .other-apps-page .site-nav a { white-space: nowrap; }
-.diveart-home .site-nav a:last-child { color: #eef7ff; }
 
 .diveart-hero { padding: 22px 0 10px; }
 .diveart-hero h1 { margin: 0 auto 16px; max-width: 930px; text-align: center; font-size: clamp(29px, 4.1vw, 51px); line-height: 1.15; letter-spacing: -.045em; font-weight: 760; text-wrap: balance; }
