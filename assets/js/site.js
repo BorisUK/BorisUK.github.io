@@ -1,4 +1,9 @@
 (() => {
+  if (document.body.classList.contains('diveart-home') &&
+      ['#jpeg-vice', '#national-flags', '#drop-ten'].includes(window.location.hash)) {
+    window.location.replace(`apps.html${window.location.hash}`);
+    return;
+  }
   const header = document.querySelector('[data-header]');
   const updateHeader = () => header?.classList.toggle('is-scrolled', window.scrollY > 18);
   updateHeader();
