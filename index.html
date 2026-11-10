@@ -36,12 +36,10 @@
         <h1 id="hero-title">Make diving photos and videos beautiful</h1>
         <div class="comparison-wrap">
           <div class="comparison" data-comparison style="--split: 50%" aria-label="Underwater colour restoration before and after">
-            <video data-after class="comparison-video" autoplay muted playsinline loop preload="auto" aria-hidden="true">
-              <source src="assets/videos/stingray-restored.mp4" type="video/mp4">
+            <video data-combined-video class="comparison-source" autoplay muted playsinline loop preload="auto" aria-hidden="true">
+              <source src="assets/videos/stingray-combined.mp4" type="video/mp4">
             </video>
-            <video data-before class="comparison-video comparison-before" autoplay muted playsinline loop preload="auto" aria-hidden="true">
-              <source src="assets/videos/stingray-original.mp4" type="video/mp4">
-            </video>
+            <canvas data-comparison-canvas class="comparison-canvas" width="1280" height="720" aria-hidden="true"></canvas>
             <span class="comparison-label comparison-label-before" aria-hidden="true">BEFORE</span>
             <span class="comparison-label comparison-label-after" aria-hidden="true">AFTER</span>
             <span class="comparison-divider" aria-hidden="true">

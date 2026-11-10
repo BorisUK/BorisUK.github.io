@@ -4,17 +4,39 @@
 
   const slider = comparison.querySelector('[data-comparison-slider]');
   const divider = comparison.querySelector('.comparison-divider');
-  const before = comparison.querySelector('[data-before]');
-  const after = comparison.querySelector('[data-after]');
+  const canvas = comparison.querySelector('[data-comparison-canvas]');
+  const video = comparison.querySelector('[data-combined-video]');
   const playButton = comparison.querySelector('[data-comparison-play]');
   const status = document.querySelector('[data-comparison-status]');
-  const videos = [before, after];
+  const context = canvas.getContext('2d', { alpha: false });
   const playbackRate = 0.65;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let playbackError = false;
+  let animationFrame = 0;
+  let lastDrawTime = 0;
+
+  const draw = () => {
+    if (!context || video.readyState < 2 || !video.videoWidth || !video.videoHeight) return;
+    const width = Math.floor(video.videoWidth / 2);
+    const height = video.videoHeight;
+    if (canvas.width !== width || canvas.height !== height) {
+      canvas.width = width;
+      canvas.height = height;
+    }
+
+    const split = Math.round(width * Number(slider.value) / 100);
+    if (split > 0) {
+      context.drawImage(video, 0, 0, split, height, 0, 0, split, height);
+    }
+    if (split < width) {
+      context.drawImage(video, width + split, 0, width - split, height,
+                        split, 0, width - split, height);
+    }
+  };
 
   const updateSplit = () => {
     comparison.style.setProperty('--split', `${slider.value}%`);
+    draw();
   };
   slider.addEventListener('input', updateSplit);
 
@@ -28,16 +50,14 @@
   };
   divider.addEventListener('pointerdown', (event) => {
     if (activePointer !== null || !event.isPrimary ||
-        (event.pointerType === 'mouse' && event.button !== 0) ||
-        event.target.closest('[data-comparison-play]')) return;
+        (event.pointerType === 'mouse' && event.button !== 0)) return;
     activePointer = event.pointerId;
     divider.setPointerCapture(event.pointerId);
     updateFromPointer(event.clientX);
     event.preventDefault();
   });
   divider.addEventListener('pointermove', (event) => {
-    if (event.pointerId !== activePointer) return;
-    updateFromPointer(event.clientX);
+    if (event.pointerId === activePointer) updateFromPointer(event.clientX);
   });
   const finishDrag = (event) => {
     if (event.pointerId !== activePointer) return;
@@ -51,56 +71,71 @@
     if (event.pointerId === activePointer) activePointer = null;
   });
 
+  const animate = (timestamp) => {
+    animationFrame = 0;
+    if (video.paused || document.hidden) return;
+    if (timestamp - lastDrawTime >= 33) {
+      draw();
+      lastDrawTime = timestamp;
+    }
+    animationFrame = requestAnimationFrame(animate);
+  };
+  const stopDrawing = () => {
+    if (animationFrame) cancelAnimationFrame(animationFrame);
+    animationFrame = 0;
+  };
+  const startDrawing = () => {
+    if (!animationFrame && !document.hidden) animationFrame = requestAnimationFrame(animate);
+  };
+
   const showPlay = (message) => {
     playButton.hidden = false;
     status.textContent = message;
   };
-  const align = () => {
-    if (before.readyState < 2 || after.readyState < 2) return;
-    if (Math.abs(before.currentTime - after.currentTime) > 0.12) {
-      before.currentTime = after.currentTime;
-    }
-  };
-  const play = async () => {
+  const play = () => {
     if (playbackError) return;
-    const results = await Promise.allSettled(videos.map(video => video.play()));
-    if (playbackError) return;
-    if (results.some(result => result.status === 'rejected')) {
-      videos.forEach(video => video.pause());
-      showPlay('Tap Play to watch the comparison.');
-      return;
-    }
-    align();
-    playButton.hidden = true;
-    status.textContent = '';
-  };
-
-  videos.forEach(video => {
-    video.defaultPlaybackRate = playbackRate;
-    video.playbackRate = playbackRate;
-    video.muted = true;
-    video.playsInline = true;
-    video.addEventListener('error', () => {
-      playbackError = true;
-      videos.forEach(v => v.pause());
+    video.play().then(() => {
       playButton.hidden = true;
-      status.textContent = 'Video playback unavailable. The comparison images are still visible.';
-    });
-  });
+      status.textContent = '';
+      draw();
+      startDrawing();
+    }).catch(() => showPlay('Tap Play to watch the comparison.'));
+  };
 
+  video.defaultPlaybackRate = playbackRate;
+  video.playbackRate = playbackRate;
+  video.muted = true;
+  video.playsInline = true;
+  video.addEventListener('loadeddata', draw);
+  video.addEventListener('seeked', draw);
+  video.addEventListener('playing', startDrawing);
+  video.addEventListener('pause', stopDrawing);
+  video.addEventListener('error', () => {
+    playbackError = true;
+    stopDrawing();
+    playButton.hidden = true;
+    status.textContent = 'Video playback unavailable.';
+  });
   playButton.addEventListener('click', play);
-  window.setInterval(() => {
-    if (!document.hidden && videos.every(video => !video.paused)) align();
-  }, 300);
 
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) videos.forEach(video => video.pause());
-    else if (!reducedMotion && !playbackError) play();
+    if (document.hidden) {
+      video.pause();
+      stopDrawing();
+    } else if (!reducedMotion && !playbackError) {
+      play();
+    }
   });
 
-  if (reducedMotion) {
-    videos.forEach(video => video.pause());
+  if (!context) {
+    playbackError = true;
+    status.textContent = 'Video comparison unavailable.';
+    video.pause();
+  } else if (reducedMotion) {
+    video.autoplay = false;
+    video.pause();
     showPlay('Play the comparison when ready.');
+    draw();
   } else {
     play();
   }

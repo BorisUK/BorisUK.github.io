@@ -53,9 +53,9 @@
 .diveart-hero h1 { margin: 0 auto 16px; max-width: 930px; text-align: center; font-size: clamp(29px, 4.1vw, 51px); line-height: 1.15; letter-spacing: -.045em; font-weight: 760; text-wrap: balance; }
 .comparison-wrap { width: 100%; margin-left: auto; margin-right: auto; }
 .comparison { position: relative; width: 100%; overflow: hidden; isolation: isolate; border-radius: 16px; background: #123a4b; box-shadow: 0 20px 70px rgba(0,0,0,.3), 0 0 0 1px rgba(205,239,246,.14); }
-.comparison::before { content: ""; display: block; padding-top: 56.078431%; }
-.comparison-video { position: absolute; top: 0; right: 0; bottom: 0; left: 0; display: block; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
-.comparison-before { z-index: 1; clip-path: inset(0 calc(100% - var(--split)) 0 0); }
+.comparison::before { content: ""; display: block; padding-top: 56.25%; }
+.comparison-source { position: absolute; top: 0; right: 0; bottom: 0; left: 0; width: 100%; height: 100%; object-fit: fill; pointer-events: none; }
+.comparison-canvas { position: absolute; z-index: 1; top: 0; right: 0; bottom: 0; left: 0; display: block; width: 100%; height: 100%; background: #123a4b; pointer-events: none; }
 .comparison-label { position: absolute; z-index: 2; top: 14px; padding: 6px 11px; border-radius: 7px; background: rgba(4, 16, 28, .76); color: #fff; font-size: 12px; font-weight: 800; letter-spacing: .04em; pointer-events: none; }
 .comparison-label-before { left: 14px; }
 .comparison-label-after { right: 14px; }
@@ -140,7 +140,7 @@
   .store-pending img { height: 41px; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .comparison-video { animation: none; }
+  .comparison-canvas { animation: none; }
 }
 
 .other-apps-page .google-badge { border: 0; background: transparent; }
