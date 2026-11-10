@@ -8,6 +8,7 @@
   const playButton = comparison.querySelector('[data-comparison-play]');
   const status = document.querySelector('[data-comparison-status]');
   const videos = [before, after];
+  const playbackRate = 0.65;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let playbackError = false;
 
@@ -40,6 +41,8 @@
   };
 
   videos.forEach(video => {
+    video.defaultPlaybackRate = playbackRate;
+    video.playbackRate = playbackRate;
     video.muted = true;
     video.playsInline = true;
     video.addEventListener('error', () => {
