@@ -3,6 +3,7 @@
   if (!comparison) return;
 
   const slider = comparison.querySelector('[data-comparison-slider]');
+  const divider = comparison.querySelector('.comparison-divider');
   const before = comparison.querySelector('[data-before]');
   const after = comparison.querySelector('[data-after]');
   const playButton = comparison.querySelector('[data-comparison-play]');
@@ -12,8 +13,42 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let playbackError = false;
 
-  slider.addEventListener('input', () => {
+  const updateSplit = () => {
     comparison.style.setProperty('--split', `${slider.value}%`);
+  };
+  slider.addEventListener('input', updateSplit);
+
+  let activePointer = null;
+  const updateFromPointer = (clientX) => {
+    const bounds = comparison.getBoundingClientRect();
+    if (!bounds.width) return;
+    const position = (clientX - bounds.left) / bounds.width;
+    slider.value = String(Math.round(Math.max(0, Math.min(1, position)) * 100));
+    updateSplit();
+  };
+  divider.addEventListener('pointerdown', (event) => {
+    if (activePointer !== null || !event.isPrimary ||
+        (event.pointerType === 'mouse' && event.button !== 0) ||
+        event.target.closest('[data-comparison-play]')) return;
+    activePointer = event.pointerId;
+    divider.setPointerCapture(event.pointerId);
+    updateFromPointer(event.clientX);
+    event.preventDefault();
+  });
+  divider.addEventListener('pointermove', (event) => {
+    if (event.pointerId !== activePointer) return;
+    updateFromPointer(event.clientX);
+  });
+  const finishDrag = (event) => {
+    if (event.pointerId !== activePointer) return;
+    if (event.type === 'pointerup') updateFromPointer(event.clientX);
+    activePointer = null;
+    if (divider.hasPointerCapture(event.pointerId)) divider.releasePointerCapture(event.pointerId);
+  };
+  divider.addEventListener('pointerup', finishDrag);
+  divider.addEventListener('pointercancel', finishDrag);
+  divider.addEventListener('lostpointercapture', (event) => {
+    if (event.pointerId === activePointer) activePointer = null;
   });
 
   const showPlay = (message) => {

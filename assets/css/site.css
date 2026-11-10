@@ -44,7 +44,7 @@ a { color: inherit; }
 button, a { -webkit-tap-highlight-color: transparent; }
 button { font: inherit; }
 
-.shell { width: min(var(--shell), calc(100% - 48px)); margin-inline: auto; }
+.shell { width: min(var(--shell), calc(100% - 48px)); margin-left: auto; margin-right: auto; }
 .skip-link { position: fixed; left: 16px; top: -80px; z-index: 1000; padding: 10px 14px; background: white; color: #111; border-radius: 8px; }
 .skip-link:focus { top: 12px; }
 
@@ -61,10 +61,10 @@ button { font: inherit; }
   transition: background 180ms ease, border-color 180ms ease;
 }
 .site-header.is-scrolled { background: rgba(7, 11, 22, 0.95); border-color: var(--line); }
-.header-inner { width: min(var(--shell), calc(100% - 48px)); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
-.brand { display: inline-flex; align-items: center; gap: 11px; text-decoration: none; font-weight: 570; letter-spacing: -0.02em; }
+.header-inner { width: min(var(--shell), calc(100% - 48px)); margin-left: auto; margin-right: auto; display: flex; align-items: center; justify-content: space-between; gap: 28px; }
+.brand { display: inline-flex; align-items: center; text-decoration: none; font-weight: 570; letter-spacing: -0.02em; }
 .brand strong { color: #bed2f2; font-weight: 720; }
-.brand-mark { width: 34px; height: 34px; object-fit: contain; }
+.brand-mark { width: 34px; height: 34px; object-fit: contain; margin-right: 11px; }
 .site-nav { display: flex; align-items: center; gap: 30px; font-size: 14px; color: var(--muted); }
 .site-nav a { text-decoration: none; transition: color 160ms ease; }
 .site-nav a:hover, .site-nav a:focus-visible { color: var(--text); }
@@ -220,7 +220,7 @@ button { font: inherit; }
   .hero { padding: 44px 0 40px; }
   .app-card { grid-template-columns: 1fr; padding: 40px; gap: 42px; }
   .app-content { max-width: 680px; }
-  .carousel { width: min(100%, 560px); margin-inline: auto; }
+  .carousel { width: min(100%, 560px); margin-left: auto; margin-right: auto; }
 }
 
 @media (max-width: 620px) {
