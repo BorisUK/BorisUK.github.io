@@ -1,0 +1,2 @@
+ffmpeg.exe -i DiveArt_Promo_01_Landscape.mp4 -c:v libx264 -preset slow -crf 26 -pix_fmt yuv420p -c:a copy -movflags +faststart DiveArt_Promo_01_Landscape-compressed.mp4
+ffmpeg.exe -i DiveArt_Workflow_01_Landscape.mp4 -c:v libx264 -preset slow -crf 24 -pix_fmt yuv420p -c:a copy -movflags +faststart DiveArt_Workflow_01_Landscape-compressed.mp4

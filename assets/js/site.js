@@ -38,9 +38,9 @@
       if (!video) return;
       // Do not play two videos over each other.
       diveartVideos.forEach(other => { if (other !== video) other.pause(); });
-      video.src = button.dataset.videoSrc;
-      video.hidden = false;
       button.hidden = true;
+      video.controls = true;
+      video.src = video.dataset.videoSrc;
       video.load();
       video.play().catch(() => { /* Native controls remain available. */ });
     });
