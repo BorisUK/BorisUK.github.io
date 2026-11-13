@@ -48,7 +48,8 @@
 .diveart-home .site-nav a, .other-apps-page .site-nav a { white-space: nowrap; }
 
 .diveart-hero { padding: 22px 0 10px; }
-.diveart-hero h1 { margin: 0 auto 16px; max-width: 930px; text-align: center; font-size: clamp(29px, 4.1vw, 51px); line-height: 1.15; letter-spacing: -.045em; font-weight: 760; text-wrap: balance; }
+.diveart-hero h1 { margin: 0 auto 8px; max-width: 930px; text-align: center; font-size: clamp(29px, 4.1vw, 51px); line-height: 1.15; letter-spacing: -.045em; font-weight: 760; text-wrap: balance; }
+.hero-subtitle { margin: 0 auto 18px; max-width: 930px; text-align: center; color: var(--muted); font-size: clamp(16px, 1.6vw, 21px); line-height: 1.45; text-wrap: balance; }
 .comparison-wrap { width: 100%; margin-left: auto; margin-right: auto; }
 .comparison { position: relative; width: 100%; overflow: hidden; isolation: isolate; border-radius: 16px; background: #123a4b; box-shadow: 0 20px 70px rgba(0,0,0,.3), 0 0 0 1px rgba(205,239,246,.14); }
 .comparison::before { content: ""; display: block; padding-top: 56.25%; }
@@ -112,7 +113,8 @@
   .diveart-home .nav-desktop { display: none; }
   .diveart-hero { padding: 12px 0 7px; }
   .diveart-hero .shell, .diveart-details.shell { width: min(100% - 22px,var(--shell)); }
-  .diveart-hero h1 { font-size: clamp(25px,7.4vw,34px); letter-spacing: -.035em; margin-bottom: 12px; }
+  .diveart-hero h1 { font-size: clamp(25px,7.4vw,34px); letter-spacing: -.035em; margin-bottom: 7px; }
+  .hero-subtitle { font-size: 15px; margin-bottom: 14px; }
   .comparison { border-radius: 10px; }
   .comparison-label { top: 8px; font-size: 10px; padding: 4px 7px; border-radius: 5px; }
   .comparison-label-before { left: 8px; }
