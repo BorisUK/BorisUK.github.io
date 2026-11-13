@@ -72,14 +72,16 @@
 .comparison-status:empty { display: none; }
 .comparison-play[hidden] { display: none; }
 .hero-stores { display: flex; justify-content: center; align-items: flex-start; flex-wrap: wrap; gap: 16px; margin: 13px auto 0; }
-.hero-stores .store-badge, .hero-stores .store-pending { width: 168px; flex: 0 0 auto; }
+.hero-stores .store-badge, .hero-stores .store-testflight { width: 168px; flex: 0 0 auto; }
 .hero-stores .store-badge { height: 50px; border: 0; border-radius: 0; overflow: hidden; background: transparent; }
 /* The official Google PNG includes transparent outer margins. Scale the image element
    without changing its artwork so its visible border matches Apple's badge. */
 .google-badge .store-official { top: -24.7%; left: -7%; width: 114%; height: 148%; max-width: none; object-fit: contain; }
-.store-pending { display: inline-flex; flex-direction: column; align-items: center; justify-content: start; gap: 2px; }
-.store-pending img { display: block; width: 100%; height: 50px; object-fit: contain; }
-.store-pending small { font-size: 10px; color: var(--muted); line-height: 1.15; }
+.store-testflight { display: inline-flex; flex-direction: column; align-items: center; gap: 2px; text-decoration: none; }
+.testflight-button { display: flex; align-items: center; justify-content: center; width: 100%; height: 50px; border: 1px solid rgba(255,255,255,.34); border-radius: 8px; background: #080808; color: #fff; font-size: 13px; font-weight: 650; }
+.store-testflight small { font-size: 10px; color: var(--muted); line-height: 1.15; }
+.store-testflight:hover .testflight-button { background: #171717; }
+.store-testflight:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
 .diveart-details { padding-bottom: 40px; }
 .diveart-features { display: grid; grid-template-columns: minmax(0,1.02fr) minmax(0,.98fr); align-items: center; gap: clamp(30px,4vw,60px); padding: 28px 0 30px; border: 0; border-radius: 0; background: transparent; }
@@ -121,10 +123,10 @@
   .comparison-bottom { justify-content: center; text-align: center; font-size: 10px; margin-top: 5px; }
   .comparison-status:not(:empty) { display: block; }
   .hero-stores { gap: 12px; margin-top: 10px; }
-  .hero-stores .store-badge, .hero-stores .store-pending { width: 148px; }
+  .hero-stores .store-badge, .hero-stores .store-testflight { width: 148px; }
   .hero-stores .store-badge { height: 44px; }
-  .store-pending img { height: 44px; }
-  .store-pending small { font-size: 9px; }
+  .testflight-button { height: 44px; }
+  .store-testflight small { font-size: 9px; }
   .diveart-features { padding: 20px 0 24px; gap: 20px; }
   .diveart-features .app-description { font-size: 13.5px; }
   .diveart-gallery .carousel-image { height: min(540px,72vh); }
@@ -133,9 +135,9 @@
 }
 @media (max-width: 370px) {
   .diveart-hero h1 { font-size: 24px; }
-  .hero-stores .store-badge, .hero-stores .store-pending { width: 136px; }
+  .hero-stores .store-badge, .hero-stores .store-testflight { width: 136px; }
   .hero-stores .store-badge { height: 41px; }
-  .store-pending img { height: 41px; }
+  .testflight-button { height: 41px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .comparison-canvas { animation: none; }
